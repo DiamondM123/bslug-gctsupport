@@ -94,8 +94,7 @@ static void myVIFlush() {
 		if (SD_Mount() != 0) goto skip;
 		mountedSD = true;
 		sdFile = SD_open(&fs, path, O_RDONLY);
-		if (sdFile == -1) goto skip;
-		if (fs.filesize > 0x80003000 - 0x800022A8) goto skip;
+		if (sdFile == -1 || fs.filesize > 0x80003000 - 0x800022A8) goto skip;
 		SD_read(sdFile, (char *)0x800022A8, fs.filesize);
  		DCFlushRange((void*)0x800022A8, fs.filesize);
 	}
